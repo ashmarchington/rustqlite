@@ -1,6 +1,11 @@
+#[cfg(test)]
+#[path = "repl_tests.rs"]
+mod repl_tests;
+
 use crate::{input, utility};
 use std::io;
 
+#[derive(Debug, PartialEq)]
 pub enum MetaCommandResult {
     MetaCommandExit,
     MetaCommandSuccess,
@@ -23,9 +28,12 @@ pub fn print_prompt() -> () {
 }
 
 // Reads an input line from the cli
-pub fn read_input(input_buffer: &mut input::InputBuffer) -> () {
+pub fn read_input<T>(input_buffer: &mut input::InputBuffer, mut reader: T) -> ()
+where
+    T: io::BufRead,
+{
     let mut line: String = String::new();
-    match io::stdin().read_line(&mut line) {
+    match reader.read_line(&mut line) {
         Ok(n) => {
             input_buffer.buffer = utility::string_util::remove_newline(line);
             input_buffer.buffer_length = n;

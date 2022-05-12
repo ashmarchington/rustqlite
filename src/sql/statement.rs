@@ -1,6 +1,11 @@
+#[cfg(test)]
+#[path = "statement_tests.rs"]
+mod statement_tests;
+
 use crate::input;
 use crate::sql::column;
 
+#[derive(Debug, PartialEq)]
 pub enum PrepareResult {
     PrepareSuccess,
     PrepareUnrecognizedStatement,
@@ -17,10 +22,8 @@ pub struct Statement {
 }
 
 impl Statement {
-    pub fn new(statement: StatementType) -> Statement {
-        Statement {
-            statement_type: statement,
-        }
+    pub fn new(statement_type: StatementType) -> Statement {
+        Statement { statement_type }
     }
 
     pub fn set_type(&mut self, statement: StatementType) {

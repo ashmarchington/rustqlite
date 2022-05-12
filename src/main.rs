@@ -3,9 +3,11 @@ mod input;
 mod sql;
 mod utility;
 
+use crate::input::InputBuffer;
 use crate::sql::column::definition::Varchar;
 use input::repl;
 use sql::statement;
+use std::io;
 use std::process::exit;
 
 // Standard exit success
@@ -13,19 +15,13 @@ const EXIT_SUCCESS: i32 = 0;
 
 // Main driver
 fn main() {
-    let mut input_buffer: input::InputBuffer = input::new_input_buffer();
-
-    let test = sql::column::definition::Row::new(
-        10,
-        String::from("test"),
-        String::from("ashmarchington@gmail.com"),
-    );
-
-    print!("tester");
+    let mut input_buffer: InputBuffer = InputBuffer::create_empty_input_buffer();
 
     loop {
         repl::print_prompt();
-        repl::read_input(&mut input_buffer);
+        let stdio = io::stdin();
+        let input = stdio.lock();
+        repl::read_input(&mut input_buffer, input);
         let command = &input_buffer.buffer;
         if command.find('.').unwrap_or(1) == 0 {
             match repl::do_meta_command(command) {
