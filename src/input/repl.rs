@@ -23,12 +23,12 @@ pub fn do_meta_command(input_buffer_command: &String) -> MetaCommandResult {
 }
 
 // Print prompt message
-pub fn print_prompt() -> () {
+pub fn print_prompt() {
     println!("db > ")
 }
 
 // Reads an input line from the cli
-pub fn read_input<T>(input_buffer: &mut input::InputBuffer, mut reader: T) -> ()
+pub fn read_input<T>(input_buffer: &mut input::InputBuffer, mut reader: T)
 where
     T: io::BufRead,
 {

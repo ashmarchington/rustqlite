@@ -6,7 +6,7 @@ mod statement_tests {
     use crate::InputBuffer;
 
     #[test]
-    fn prepare_statement_test() -> () {
+    fn prepare_statement_test() {
         let select = InputBuffer::new(String::from("select * from test;"), 99, 99);
         let insert = InputBuffer::new(String::from("insert into test;"), 99, 99);
         let unknown = InputBuffer::new(String::from("unknown"), 99, 99);

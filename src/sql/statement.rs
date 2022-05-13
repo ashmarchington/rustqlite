@@ -53,7 +53,7 @@ pub fn prepare_statement(
     PrepareResult::PrepareUnrecognizedStatement
 }
 
-pub fn execute_statement(statement: Statement) -> () {
+pub fn execute_statement(statement: Statement) {
     match statement.get_type() {
         StatementType::StatementInsert => {
             println!("This would run an insert statement.\n")
